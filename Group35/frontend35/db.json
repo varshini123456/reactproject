@@ -1,0 +1,405 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "Name": "Mobile",
+      "image": "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1326&q=80",
+      "desc": "Mobile phones are merely a part of our lives. It's to stay connected with friends, family and outsiders."
+    },
+    {
+      "id": "2",
+      "Name": "Laptop",
+      "image": "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1326&q=80",
+      "desc": "A laptop, laptop computer, or notebook computer is a small, portable personal computer (PC) with a screen and alphanumeric keyboard."
+    },
+    {
+      "Name": "Headphones",
+      "id": "Ezvhh3P",
+      "image": "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1326&q=80",
+      "desc": "Headphones are a pair of small loudspeaker drivers worn on or around the head over a user's ears."
+    }
+  ],
+  "features": [
+    {
+      "categoryId": "1",
+      "set": {
+        "RAM": [
+          "4GB",
+          "6GB",
+          "8GB"
+        ],
+        "Storage": [
+          "32GB",
+          "64GB",
+          "128GB"
+        ],
+        "color": [
+          "red",
+          "black",
+          "silver"
+        ]
+      }
+    },
+    {
+      "categoryId": "2",
+      "set": {
+        "RAM": [
+          "4",
+          "8",
+          "16",
+          "32"
+        ],
+        "Storage": [
+          "512GB HDD",
+          "1TB HDD",
+          "512GB SSD",
+          "1TB HDD + 512GB SSD"
+        ],
+        "color": [
+          "black",
+          "silver",
+          "grey"
+        ]
+      }
+    },
+    {
+      "categoryId": "Ezvhh3P",
+      "set": {
+        "color": [
+          "black",
+          "white",
+          "grey"
+        ],
+        "connector_type": [
+          "wired",
+          "wireless"
+        ]
+      }
+    }
+  ],
+  "brands": [
+    {
+      "Name": "Vivo",
+      "categoryId": "1",
+      "id": "YQCdZ9W"
+    },
+    {
+      "Name": "Mi",
+      "categoryId": "1",
+      "id": "KHFRjLW"
+    },
+    {
+      "Name": "OnePlus",
+      "categoryId": "1",
+      "id": "KqUbidd"
+    },
+    {
+      "categoryId": "2",
+      "Name": "HP",
+      "id": "b51Mhre"
+    },
+    {
+      "Name": "Samsung",
+      "categoryId": "1",
+      "id": "1fsrz24"
+    },
+    {
+      "Name": "Realme",
+      "categoryId": "1",
+      "id": "ev3Laxi"
+    },
+    {
+      "Name": "DELL",
+      "categoryId": "2",
+      "id": "_Vg2Sx6"
+    },
+    {
+      "Name": "Boat",
+      "categoryId": "Ezvhh3P",
+      "id": "3"
+    },
+    {
+      "Name": "Apple",
+      "categoryId": "Ezvhh3P",
+      "id": "4"
+    },
+    {
+      "Name": "OnePlus",
+      "categoryId": "Ezvhh3P",
+      "id": "5"
+    },
+    {
+      "Name": "Access",
+      "categoryId": "2",
+      "id": "yGb4a_h"
+    }
+  ],
+  "users": [
+    {
+      "name": "varshini123456",
+      "firstName": "Kota",
+      "lastName": "Varshini",
+      "email": "kvsvarshini23@gmail.com",
+      "password": "varshini23",
+      "id": 1
+    },
+    {
+      "name": "nishita",
+      "firstName": "UPPALA",
+      "lastName": "NISHITA",
+      "email": "nishitauppala11@gmail.com",
+      "password": "12345678",
+      "id": 2
+    },
+    {
+      "name": "nishita",
+      "firstName": "UPPALA",
+      "lastName": "NISHITA",
+      "email": "nishitauppala11@gmail.com",
+      "password": "12345678",
+      "id": 3
+    },
+    {
+      "name": "Kota Venkata Sai Varshini",
+      "email": "venkatasaivarshini.k19@iiits.in",
+      "id": 4
+    },
+    {
+      "name": "varshini23",
+      "email": "adittya234@gmail.com",
+      "id": 5
+    },
+    {
+      "name": "Aditya K",
+      "firstName": "Aditya",
+      "lastName": "Kotikalpudi",
+      "email": "aditya@gmail.com",
+      "password": "aditya123",
+      "id": 6
+    }
+  ],
+  "sellers": [
+    {
+      "name": "madesh",
+      "gst": "GSTIN668732",
+      "email": "madeshmedasani@gmail.com",
+      "password": "madesg",
+      "id": 2
+    },
+    {
+      "name": "Madhesh Eletronics",
+      "gst": "111222333444555",
+      "email": "medasanimadhesh@gmail.com",
+      "password": "madhesh123",
+      "id": 3
+    },
+    {
+      "name": "satyadev",
+      "gst": "779484684977948",
+      "email": "vallinarasimhaswamy.k19@iiits.in",
+      "password": "Aditya@1234",
+      "id": 4
+    },
+    {
+      "name": "nishita",
+      "gst": "111111111111111",
+      "email": "nishitauppala11@gmail.com",
+      "password": "12345678",
+      "id": 5
+    },
+    {
+      "name": "varshini",
+      "gst": "GSTIN1234567890",
+      "email": "kvsvarshini23@gmail.com",
+      "password": "varshini23",
+      "id": 6
+    },
+    {
+      "name": "varshini23",
+      "gst": "GST12345678900",
+      "email": "venkatasaivarshini.k19@iiits.in",
+      "password": "varsh",
+      "id": 7
+    },
+    {
+      "name": "Aditya",
+      "gst": "GST12345678900",
+      "email": "venkatasaivarshini.k19@iiits.in",
+      "password": "varsh",
+      "id": 8
+    }
+  ],
+  "sellerproduct": [
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "Airpods 55",
+      "productbrand": "Apple",
+      "productprice": "3589",
+      "productquantity": "2",
+      "color": "white",
+      "connectorType": "wireless",
+      "cid": "Ezvhh3P",
+      "id": 1
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "Earphones",
+      "productbrand": "OnePlus",
+      "productprice": "567",
+      "productquantity": "5",
+      "color": "black",
+      "connectorType": "wired",
+      "cid": "Ezvhh3P",
+      "id": 2
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "Vivo 5080",
+      "productbrand": "Vivo",
+      "productprice": "45839",
+      "productquantity": "6",
+      "ram": "8GB",
+      "storage": "128GB",
+      "colour": "silver",
+      "cid": "1",
+      "id": 3
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "HPD600",
+      "productbrand": "HP",
+      "productprice": "60000",
+      "ram": "16",
+      "storage": "512GB SSD",
+      "colour": "silver",
+      "cid": "2",
+      "quantity": 1,
+      "id": 5
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "Earphones",
+      "productbrand": "OnePlus",
+      "productprice": "17",
+      "productquantity": "2",
+      "color": "white",
+      "connectorType": "wireless",
+      "cid": "Ezvhh3P",
+      "id": 6
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "Oneplus7",
+      "productbrand": "OnePlus",
+      "productprice": "34567",
+      "productquantity": "3",
+      "ram": "8GB",
+      "storage": "32GB",
+      "colour": "black",
+      "cid": "1",
+      "id": 7
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "HP D44682",
+      "productbrand": "Access",
+      "productprice": "37438",
+      "productquantity": "4",
+      "ram": "16",
+      "storage": "1TB HDD",
+      "color": "silver",
+      "cid": "2",
+      "id": 8
+    }
+  ],
+  "sellerprofile": [
+    {
+      "sellername": "satyadev",
+      "sellerfirstname": "jyothi",
+      "sellerlastname": "nath",
+      "city": "Rajamundry",
+      "address": "opposite raymond showroom",
+      "id": 1
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "sellerfirstname": "Kota",
+      "sellerlastname": "Varshini",
+      "city": "NELLORE",
+      "address": "Sapthagiri Enclave,Pappula street,Nellore",
+      "id": 2
+    },
+    {
+      "sellername": "varshini",
+      "sellerfirstname": "Kota",
+      "sellerlastname": "Varshini",
+      "city": "NELLORE",
+      "address": "Sapthagiri Enclave,Pappula street,Nellore",
+      "id": 3
+    }
+  ],
+  "userprofile": [
+    {
+      "username": "varshini123456",
+      "userfirstname": "Kota",
+      "userlastname": "Varshini",
+      "city": "NELLORE",
+      "address": "Sapthagiri Enclave,Pappula street,Nellore",
+      "id": 1
+    }
+
+  ],
+  "cart": [
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "HPD600",
+      "productbrand": "HP",
+      "productprice": "60000",
+      "ram": "16",
+      "storage": "512GB SSD",
+      "cid": "2",
+      "quantity": 1,
+      "id": 4
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "HPD600",
+      "productbrand": "HP",
+      "productprice": "60000",
+      "ram": "16",
+      "storage": "512GB SSD",
+      "cid": "2",
+      "quantity": 1,
+      "id": 5
+    },
+    {
+      "sellername": "Madhesh Eletronics",
+      "productname": "Vivo 5080",
+      "productbrand": "Vivo",
+      "productprice": "45839",
+      "ram": "8GB",
+      "storage": "128GB",
+      "colour": "silver",
+      "cid": "1",
+      "quantity": 1,
+      "pid": 3,
+      "id": 6
+    }
+  ],
+  "orders": [
+    {
+      "date": "Mon, 28 Mar 2022 06:42:26 GMT",
+      "username": "Aditya K",
+      "productId": 2,
+      "return": false,
+      "sellername": "Madhesh Eletronics",
+      "productname": "Earphones",
+      "productbrand": "OnePlus",
+      "productprice": "567",
+      "productquantity": "5",
+      "cid": "Ezvhh3P",
+      "cartQuantity": 3,
+      "id": 1
+    }
+  ]
+}
