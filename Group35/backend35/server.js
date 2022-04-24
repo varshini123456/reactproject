@@ -64,38 +64,7 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads')
-  },
-  filename : (req, file, cb) => {
-    cb(null,  "product"+ new Date().toISOString().replace(/:/g,'-') + file.originalname )
-  }
-})
 
-const filefilter = (req, file, cb) => {
-  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
-      || file.mimetype === 'image/jpeg'){
-          cb(null, true);
-      }else {
-          cb(null, false);
-      }
-}
-
-const fileSizeFormatter = (bytes, decimal) => {
-  if(bytes === 0){
-      return '0 Bytes';
-  }
-  const dm = decimal || 2;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'YB', 'ZB'];
-  const index = Math.floor(Math.log(bytes) / Math.log(1000));
-  return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + ' ' + sizes[index];
-
-}
-
-
-
-const upload = multer({storage: storage,fileFilter: filefilter})
 
 
 
@@ -117,396 +86,27 @@ const logStream = fs.createWriteStream(path.join(__dirname,"loggerFile"),{flags:
 
 app.use(morgan(":host :method :url :status :res[content-length] - :response-time ms",{stream:logStream}))
 
+const userRouter = require('./routes/userroutes')
+app.use('/users', userRouter)
 
-//User
-app.get("/users",cors(),async (req,res)=>{
-  const user = await User.find({})
-  user_json= JSON.stringify(user)
-  res.header('Content-Range','user 0-20/20')
-  res.json(user)
-})
+const categoryRouter = require('./routes/categoryroutes')
+app.use('/categories', categoryRouter)
 
-app.post("/users",cors(),async (req,res)=>{
+const brandRouter = require('./routes/brandroutes')
+app.use('/brands', brandRouter)
 
-  const newUser = new User(req.body)
-  const user = await newUser.save()
-  res.json(user)
-})
+const sellerRouter = require('./routes/sellerroutes')
+app.use('/sellers', sellerRouter)
 
-//Category
-app.post("/categories",cors(),async (req,res)=>{
-    const category = new Category(req.body)
-    const cate = await category.save()
-    res.json(cate)
-})
+const productRouter = require('./routes/productroutes')
+app.use('/sellerproduct', productRouter)
 
-app.get("/categories",cors(),async (req,res)=>{
-  const cat = await Category.find({})
-  
-  res.header('Content-Range','category 0-20/20')
-  res.json(cat)
-})
+const cartRouter = require('./routes/cartroutes')
+app.use('/cart', cartRouter)
 
-app.get('/categories/:id',cors(), async (req,res)=>{
-    const cat = await Category.findById({"_id": req.params.id})
-    res.json(cat)
-})
+const userOrderRouter = require('./routes/userorderroutes')
+app.use('/orders', userOrderRouter)
 
-//Brand
-
-app.post("/brands",cors(), async (req,res)=>{
-  const bran = new Brand(req.body)
-  const b = await bran.save()
-  res.json(b)
-})
-app.get("/brands",cors(), async (req,res)=>{
-  const bran = await Brand.find({})
-  // const b = JSON.stringify(bran)
-  res.header('Content-Range','brands 0-20/20')
-  res.json(bran)
-})
-
-app.get('/brands/:id',cors(), async (req,res)=>{
-  const brand_id = await Brand.findById({"_id": req.params.id})
-  res.json(brand_id)
-})
-// Brands for Categories
-
-
-app.get("/categories/:id/brands",cors(), async (req,res)=>{
-  const bran = await Brand.find({Category: req.params.id})
-  // const b = JSON.stringify(bran)
-  res.json(bran)
-})
-
-//Profile
-app.get("/user/:id/userprofile",cors(),async (req,res)=>
-{
-  const userProfile = await UserProfile.find({userId: req.params.id})
-  // const userProf= JSON.stringify(userProfile)
-  res.json(userProfile)
-})
-
-
-
-
-
-app.post("/users/:id/userprofile",cors(),async (req,res)=>{
-
-  const userprofile= new UserProfile({...req.body,userId: req.params.id})
-  const profile= await userprofile.save()
-  res.json(profile)
-})
-
-
-//Seller
-app.post("/sellers",cors(),async (req,res)=>{
-  
-  console.log(req.body);
-  const seller_temp= new Seller(req.body)
-  const seller_t = await seller_temp.save()
-  res.json(seller_t)
-})
-
-app.get("/sellers",cors(),async (req,res)=>{
-  
-  const seller = await Seller.find({})
-  res.header('Content-Range','sellers 0-20/20')
-  res.json(seller)
-})
-
-app.get("/sellers/:id",cors(), async(req,res)=>{
-  const seller = await Seller.findById({ "_id": req.params.id})
-})
-
-app.delete("/sellers/:id", cors(), async(req,res)=>{
-  const seller = await Seller.findById({"_id": req.params.id})
-  await Seller.deleteOne(seller)
-  res.status(200).json({message: "deleted sucessfully"})
-})
-
-// Seller profile
-app.post('/sellers/:id/sellerprofile',cors(), async(req,res)=>{
-  const sellerprofile = new SellerProfile({...req.body,sellerId: req.params.id})
-  const profile = await sellerprofile.save()
-  res.json(profile)
-})
-
-
-app.get('/sellers/:id/sellerprofile',cors(), async(req,res)=>{
-
-  const sellerprofile = await SellerProfile.find({sellerId: req.params.id})
-  res.json(sellerprofile) 
-})
-
-app.patch("/sellerprofile/:id",cors(), async (req,res)=>{
-
-  const sellerprofile = await SellerProfile.findById({"_id":req.params.id})
-
-  if(req.body.firstName != null){
-    sellerprofile.firstName = req.body.firstName
-  }
-  if(req.body.lastName != null){
-    sellerprofile.lastName = req.body.lastName
-  }
-  if(req.body.PhNo != null){
-    sellerprofile.PhNo = req.body.PhNo
-  }
-  if(req.body.city != null){
-    sellerprofile.city = req.body.city
-  }
-  if(req.body.address != null){
-    sellerprofile.address = req.body.address
-  }
-  try{
-      const updatedSeller = await sellerprofile.save()
-      res.status(200).json(updatedSeller)
-  }
-  catch(error){
-      req.status(500).json({message: error.message})
-  }
- 
-})
-
-app.delete('/sellerprofile/:id', cors(), async(req,res)=>{
-  const sellerprofile = await SellerProfile.findById({"_id": req.params.id})
-  await SellerProfile.deleteOne(sellerprofile)
-  res.status(200).json({message: "deleted!"})
-})
-
-
-// Features of a category
-app.get('/categories/:id/features',cors(), (req,res)=>{
-
-  var query = { cid: req.params.id };
-  db.collection("features").find(query).toArray(function(err, result) {
-    if (err) throw err;
-    res.json(result);
-    //db.close();
-  });
-
-  
-})
-
-
-// Product
-
-app.get('/sellerproduct',cors(),async(req,res)=>{
-  const products = await Product.find({}).populate('Images')
-  res.json(products)
-})
-
-app.get("/seller/:id/sellerproduct",cors(),async(req,res)=>{
-  const products = await Product.find({sellerId:req.params.id})
-  res.json(products)
-
-})
-
-// app.delete('/sellerproduct',cors(),async(req,res)=>{
-//   const p = await Product.deleteMany({})
-//   res.json("meeaage")
-// })
-
-
-app.post("/sellerproduct",cors(),async (req,res)=>{
-
-  const newProduct= new Product(req.body)
-  const product= await newProduct.save()
-  res.json(product)
-})
-
-
-app.patch("/sellerproduct/:id",cors(), async (req,res)=>{
-
-
-  const sellerproduct = await Product.findById({"_id":req.params.id})
-
-  if(req.body.sellername != null){
-    sellerproduct.sellername = req.body.sellername
-  }
-  if(req.body.productname != null){
-    sellerproduct.productname = req.body.productname
-  }
-  if(req.body.productbrand != null){
-    sellerproduct.productbrand = req.body.productbrand
-  }
-  if(req.body.productprice != null){
-    sellerproduct.productprice = req.body.productprice
-  }
-  if(req.body.color != null){
-    sellerproduct.color = req.body.color
-  }
-  if(req.body.connectorType != null){
-    sellerproduct.connectorType = req.body.connectorType
-  }
-  if(req.body.productquantity != null){
-    sellerproduct.productquantity = req.body.productquantity
-  }
-  try{
-      const updatedProduct = await sellerproduct.save()
-      res.status(200).json(updatedProduct)
-  }
-  catch(error){
-      req.status(500).json({message: error.message})
-  }
- 
-})
-
-app.delete("/sellerproduct/:id", cors(), async(req,res)=>{
-  const product = await Product.findById({"_id" : req.params.id})
-  await Product.deleteOne(product)
-  res.status(200).json({message: "deleted!"})
-})
-
-
-
-app.get('/categories/:cid/sellerproduct',cors(), async(req,res)=>{
-  const products = await Product.find({"Category": req.params.cid})
-  res.json(products)
-})
-
-app.get('/categories/:cid/brands/:brandname/sellerproduct',cors(),async(req,res)=>{
-  try{
-    const products= await Product.find({Category:req.params.cid, productbrand: req.params.brandname})
-    res.json(products)
-  }
-  catch(err){
-    console.log(err)
-  }
-  
-})
-
-app.delete('/users/:id/sellerproduct/:productId',cors(),async(req,res)=>{
-  try{
-    const productItem = await Product.deleteOne({_id: req.params.productId})
-    res.json(productItem)
-  }
-  catch(error){
-    console.log(error)
-  }
-})
-
-
-app.patch('/users/:id/sellerproduct/:productId',cors(),async(req,res)=>{
-  const productItem = await Product.findByIdAndUpdate({_id: req.params.productId})
-  productItem.productquantity = req.body.productquantity
-  const item = await productItem.save()
-  res.json(item)
-})
-
-
-
-//Image Upload
-
-// const imageUpload = async(image) => {
-//   const file = new Image({
-//     fileName: image.file.originalname,
-//     filePath: image.file.path,
-//     fileType: image.file.mimetype,
-//     fileSize: fileSizeFormatter(image.file.size, 2) // 0.00
-// });
-//   const f = await file.save();
-//   return f;
-// }
-
-app.post('/sellers/:id/sellerproduct',cors(),upload.single('file'),async (req, res, next) => {
-  try{
-    const tmp = req.file.path.slice(8)
-    // const pth = req.file.path[]
-      const file = new Image({
-          fileName: req.file.originalname,
-          filePath: tmp,
-          fileType: req.file.mimetype,
-          fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
-      });
-      const f = await file.save();
-      // const f = await imageUpload(req)
-      const newProduct= new Product({sellerId:req.params.id,...req.body})
-      // const product= await newProduct.save()
-      newProduct.Images.push(f.id)
-      const product = await newProduct.save()
-    //  const updateProduct=  Product.findOneAndUpdate(
-    //     {_id: product.id },
-    //     {$push : {Images: f.id}}
-    //   )
-      // res.json(product)
-      console.log(product)
-      res.status(201).json(product);
-  }catch(error) {
-      res.status(400).send(error.message);
-  }
-      // res.json(img)
-})
-
-app.get('/sellerproduct/:id/image',cors(),async(req,res)=>{
-  // const product = Product.find({"_id":req.params.id}).populate(Image)
-  const img = await Image.find({})
-  res.json(img)
-})
-
-
-//Cart
-
-app.get('/cart',cors(),async(req,res)=>{
-  let cartItems = await Cart.find({})
-  res.json(cartItems)
-})
-
-app.delete('/cart',cors(),async(req,res)=>{
-  const cartItems = await Cart.deleteMany()
-})
-
-app.get('/users/:id/cart',cors(),async(req,res)=>{
-  const cartItems = await Cart.find({userId: req.params.id})
-  console.log(cartItems)
-  res.json(cartItems)
-})
-
-app.post('/users/:id/cart',cors(),async(req,res)=>{
-  const newCartItem = await new Cart({...req.body,userId: req.params.id,})
-  const item = newCartItem.save()
-  console.log(item)
-  res.json(newCartItem)
-})
-
-app.get('/users/:id/cart/:cartId',cors(),async(req,res)=>{
-  const cartItem = await Cart.find({_id: req.params.cartId})
-  res.json(cartItem)
-})
-
-app.patch('/users/:id/cart/:cartId',cors(),async(req,res)=>{
-  const cartItem = await Cart.findByIdAndUpdate({_id: req.params.cartId})
-    cartItem.qty = req.body.qty
-  const item = await cartItem.save()
-  res.json(item)
-})
-
-app.delete('/users/:id/cart/:cartId',cors(),async(req,res)=>{
-  // const cartItem = await Cart.findByIdAndRemove({_id: req.params.cartId})
-  // res.json(cartItem)
-  try{
-    const cartItem = await Cart.deleteOne({_id: req.params.cartId})
-    res.json(cartItem)
-  }
-  catch(error){
-    console.log(error)
-  }
-})
-
-
-//User Orders
-
-app.get('/orders',cors(),async(req,res)=>{
-  const orders = await UserOrders.find({})
-
-  res.header('Content-Range','orders 0-20/20')
-
-
-  res.header('Content-Range','sellers 0-20/20')
-
-  res.json(orders)
-
-})
 
 
 app.post('/users/:id/orders',cors(),async(req,res)=>{
@@ -534,10 +134,6 @@ app.delete('/users/:id/orders',cors(),async(req,res)=>{
 
 })
 
-app.get('/users/:id',cors(),async(req,res)=>{
-  const user = User.find({_id:req.params.id})
-  res.json(user)
-})
 
 
 // Seller Orders
@@ -643,15 +239,6 @@ app.patch("/userprofile/:id",cors(), async (req,res)=>{
  
 })
 
-
-
-
-
-
-app.delete("/image/:id", cors(), async(req,res)=>{
-  const img = await Image.findById({"_id": req.params.id})
-  await Image.deleteOne(img)
-})
 
 
 app.listen(5000,()=>{
