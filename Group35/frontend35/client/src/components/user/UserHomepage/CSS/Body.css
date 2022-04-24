@@ -1,0 +1,26 @@
+.images{
+    width : 390px !important;
+    height : 221px !important;
+}
+
+.category{
+    font-weight: bolder !important;
+    color : #ECB365 !important;
+}
+
+.slide{
+    margin-top: 10px !important;
+}
+
+.link-cards{
+    text-decoration: none !important;
+}
+
+
+.link-card:hover{
+    /* box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2) !important; */
+    box-shadow: 0 0 5px 5px  rgba(15, 15, 15, 0.26) !important;
+  
+    transform: translateY(-1vmax);
+}
+

@@ -1,0 +1,42 @@
+
+.order-border{
+    border-left: 1px solid black !important;
+    width: 55% !important;
+    height: 100% !important;
+}
+
+.order-margin{
+    margin-top: 40px !important
+}
+
+.order-heading1{
+    text-align:left;
+    padding-left: 35px;
+}
+
+.order-orders{
+    background-color:#ece9e9 !important;
+    padding : 20px 9px 20px 9px !important;
+    margin : 15px;
+}
+
+.order-shop{
+    /* width: 100% !important; */
+    background-color:#fff !important;
+    padding : 20px 9px 0px 9px;
+}
+
+.order-status-display{
+    display:flex;
+    margin: 10px 2px;
+}
+
+.order-deliver{
+    margin-left: 12px;
+    font-weight: bold;
+    font-size: large;
+}
+
+.order-card{
+    margin-bottom: 15px;
+}

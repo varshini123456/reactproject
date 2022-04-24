@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+  }
+
+  .row{
+    margin: 10%;
+  }
+  
+  .column1 {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 525px; 
+    border-right: 2px solid rgb(212, 211, 211);
+  }
+
+  .column1 h2{
+      font-weight: bold;
+      font-size:50px;
+      color:rgb(0, 183, 255)
+  }
+
+  .column1 img{
+      width: 90%;
+      height: 417px;
+  }
+
+  .column2 div{
+      padding-left: 50px;
+  }
+
+  
+  .column2 {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 525px; 
+  }
+
+  .team i{
+    margin:10px !important;
+  }
+
+  .team span{
+      color: black;
+      font-size:30px;
+      padding: 0%;
+  }
+
+  #project{
+      font-size:20px;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
