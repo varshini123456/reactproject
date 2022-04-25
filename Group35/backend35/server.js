@@ -107,7 +107,8 @@ app.use('/cart', cartRouter)
 const userOrderRouter = require('./routes/userorderroutes')
 app.use('/orders', userOrderRouter)
 
-
+const loginRouter = require('./routes/loginroutes')
+app.use('/login',loginRouter)
 
 // app.post('/users/:id/orders',cors(),async(req,res)=>{
 //   const newOrder = await new UserOrders(req.body)

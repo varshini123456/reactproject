@@ -4,6 +4,7 @@ const UserProfile = require('../models/UserProfile')
 const Product = require('../models/product')
 const Cart = require('../models/Cart')
 const UserOrders = require('../models/UserOrders')
+const bcrypt = require('bcrypt')
 const cors = require('cors');
 
 
@@ -18,7 +19,9 @@ const router = Router()
     })
     
     router.post("/",cors(),async (req,res)=>{
-    
+        const salt = await bcrypt.genSalt(10)
+        const hashedpassword= await bcrypt.hash(req.body.password,salt)
+        req.body.password=hashedpassword
         const newUser = new User(req.body)
         const user = await newUser.save()
         res.json(user)

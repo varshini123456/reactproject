@@ -20,7 +20,7 @@ import BuildingIcon from './Images/building.jpg'
 import {useNavigate} from 'react-router-dom'
 import sellerstore from '../../seller/sellerstore';
 import Navbar from '../HomeStart/Navbar';
-
+import axios from 'axios';
 const theme = createTheme();
 
 function UserSignIn(){
@@ -36,42 +36,22 @@ function UserSignIn(){
         let userId = ""
     if( data.get('email').includes('@') && data.get('password').length>=8)
     {
-      fetch("http://localhost:5000/users")
-        .then((response) => response.json())
-        .then((users) =>{ 
-            //checks if user is present in the list of registerd user in sellerusers
-            let a= (users) => {
-                for (let i=0;i<users.length;i++){
-                    if(users[i].email===data.get('email') && users[i].password === data.get('password')){
-                        username = users[i].username 
-                        userId = users[i].id
-                        console.log(userId)
-                        return true;
-                    }
-                    
-                }
-                return false;
-            }
-            
-            let authenticate = a(users) // returns true if user is pressent
-            if(authenticate)
-            {
-                //user state is send to other components after login 
-                sellerstore.dispatch({type:"loginUser",payload: { username: username, userId: userId }})
-                
-                //navigate to user home page
-               navigate('/user/home')
-            }
-            else
-            {
-                
-                alert("Incorrect credentials");
-
-            }
-           
-            
-        })
-
+        const credentials = { email: data.get('email'), password: data.get('password') };
+        axios.post(`http://localhost:5000/login`, credentials)
+      .then((res) => {
+        if (res.data) {
+          const user = {
+            userId: res.data.user.id,
+            username: res.data.user.username,
+            isAdmin: res.data.user.isAdmin,
+            token: res.data.token,
+          };
+          sellerstore.dispatch({ type: "loginSuccess", payload: {userId: userId,username: username}});
+          console.log("Login Success");
+          // Redirecting to home page
+          navigate("/home");
+        }
+      })
     }
     else
     {
