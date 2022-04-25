@@ -3,7 +3,7 @@ const User = require('../models/User')
 const UserProfile = require('../models/UserProfile')
 const Product = require('../models/product')
 const Cart = require('../models/Cart')
-
+const UserOrders = require('../models/UserOrders')
 const cors = require('cors');
 
 
@@ -28,6 +28,36 @@ const router = Router()
         const user = User.find({_id:req.params.id})
         res.json(user)
       })
+    
+    router.patch("/:id",cors(), async (req,res)=>{
+
+        const user = await User.findById(req.params.id)
+      
+        if(req.body.username != null){
+            user.username = req.body.username
+        }
+        if(req.body.email != null){
+            user.email = req.body.email
+        }
+        if(req.body.password != null){
+            user.password = req.body.password
+        }
+        try{
+            const updatedUser = await user.save()
+            res.status(200).json(updatedUser)
+        }
+        catch(error){
+            req.status(500).json({message: error.message})
+        }
+       
+      })
+      
+    router.delete("/:id", cors(), async (req,res)=>{
+        const user = await User.findById({"_id": req.params.id})
+        await User.deleteOne(user)
+        res.status(200).json({message: "deleted"})
+      })
+      
       
 
     //Profile
@@ -102,4 +132,34 @@ const router = Router()
           console.log(error)
         }
       })
+
+  //UserOrders
+      
+    router.post('/:id/orders',cors(),async(req,res)=>{
+      const newOrder = await new UserOrders(req.body)
+      const order = await newOrder.save()
+      console.log(order)
+      res.json(order)
+    })
+
+    router.get('/:id/orders',cors(),async(req,res)=>{
+      const orders = await UserOrders.find({userId:req.params.id})
+      res.json(orders)
+
+    })
+
+    router.delete('/:id/orders/:orderId',cors(),async(req,res)=>{
+      const orders = await UserOrders.deleteOne({_id:req.params.orderId})
+      res.json(orders)
+
+    })
+
+    router.delete('/:id/orders',cors(),async(req,res)=>{
+      const orders = await UserOrders.deleteMany({userId:req.params.id})
+      res.json(orders)
+
+    })
+
+
+
   module.exports = router

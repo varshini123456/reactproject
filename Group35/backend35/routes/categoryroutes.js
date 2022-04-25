@@ -25,6 +25,12 @@ router.get('/:id',cors(), async (req,res)=>{
     res.json(cat)
 })
 
+router.delete('/:id', cors(), async (req,res)=>{
+  const cat = await Category.findById({"_id": req.params.id})
+  await Category.deleteOne(cat)
+  res.status(200).json({message: "deleted"})
+})
+
 // Brands for Categories
 
 

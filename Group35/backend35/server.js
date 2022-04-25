@@ -109,82 +109,82 @@ app.use('/orders', userOrderRouter)
 
 
 
-app.post('/users/:id/orders',cors(),async(req,res)=>{
-  const newOrder = await new UserOrders(req.body)
-  const order = await newOrder.save()
-  console.log(order)
-  res.json(order)
-})
+// app.post('/users/:id/orders',cors(),async(req,res)=>{
+//   const newOrder = await new UserOrders(req.body)
+//   const order = await newOrder.save()
+//   console.log(order)
+//   res.json(order)
+// })
 
-app.get('/users/:id/orders',cors(),async(req,res)=>{
-  const orders = await UserOrders.find({userId:req.params.id})
-  res.json(orders)
+// app.get('/users/:id/orders',cors(),async(req,res)=>{
+//   const orders = await UserOrders.find({userId:req.params.id})
+//   res.json(orders)
 
-})
+// })
 
-app.delete('/users/:id/orders/:orderId',cors(),async(req,res)=>{
-  const orders = await UserOrders.deleteOne({_id:req.params.orderId})
-  res.json(orders)
+// app.delete('/users/:id/orders/:orderId',cors(),async(req,res)=>{
+//   const orders = await UserOrders.deleteOne({_id:req.params.orderId})
+//   res.json(orders)
 
-})
+// })
 
-app.delete('/users/:id/orders',cors(),async(req,res)=>{
-  const orders = await UserOrders.deleteMany({userId:req.params.id})
-  res.json(orders)
+// app.delete('/users/:id/orders',cors(),async(req,res)=>{
+//   const orders = await UserOrders.deleteMany({userId:req.params.id})
+//   res.json(orders)
 
-})
+// })
 
 
 
 // Seller Orders
-app.get('/sellers/:id/orders',cors(),async(req,res)=>{
-  const orders = await UserOrders.find({sellerId:req.params.id})
-  res.json(orders)
+// app.get('/sellers/:id/orders',cors(),async(req,res)=>{
+//   const orders = await UserOrders.find({sellerId:req.params.id})
+//   res.json(orders)
 
-})
+// })
 
 
-app.patch("/users/:id",cors(), async (req,res)=>{
+// app.patch("/users/:id",cors(), async (req,res)=>{
 
-  const user = await User.findById(req.params.id)
+//   const user = await User.findById(req.params.id)
 
-  if(req.body.username != null){
-      user.username = req.body.username
-  }
-  if(req.body.email != null){
-      user.email = req.body.email
-  }
-  if(req.body.password != null){
-      user.password = req.body.password
-  }
-  try{
-      const updatedUser = await user.save()
-      res.status(200).json(updatedUser)
-  }
-  catch(error){
-      req.status(500).json({message: error.message})
-  }
+//   if(req.body.username != null){
+//       user.username = req.body.username
+//   }
+//   if(req.body.email != null){
+//       user.email = req.body.email
+//   }
+//   if(req.body.password != null){
+//       user.password = req.body.password
+//   }
+//   try{
+//       const updatedUser = await user.save()
+//       res.status(200).json(updatedUser)
+//   }
+//   catch(error){
+//       req.status(500).json({message: error.message})
+//   }
  
-})
+// })
 
-app.delete("/users/:id", cors(), async (req,res)=>{
-  const user = await User.findById({"_id": req.params.id})
-  await User.deleteOne(user)
-  res.status(200).json({message: "deleted"})
-})
+// app.delete("/users/:id", cors(), async (req,res)=>{
+//   const user = await User.findById({"_id": req.params.id})
+//   await User.deleteOne(user)
+//   res.status(200).json({message: "deleted"})
+// })
 
 
-app.delete('/categories/:id', cors(), async (req,res)=>{
-  const cat = await Category.findById({"_id": req.params.id})
-  await Category.deleteOne(cat)
-  res.status(200).json({message: "deleted"})
-})
+// app.delete('/categories/:id', cors(), async (req,res)=>{
+//   const cat = await Category.findById({"_id": req.params.id})
+//   await Category.deleteOne(cat)
+//   res.status(200).json({message: "deleted"})
+// })
 
-app.delete('/brands/:id', cors(), async (req,res)=>{
-  const brand_id = await Brand.findById({"_id": req.params.id})
-  await Brand.deleteOne(brand_id)
-  res.status(200).json({message: "deleted"})
-})
+// app.delete('/brands/:id', cors(), async (req,res)=>{
+//   const brand_id = await Brand.findById({"_id": req.params.id})
+//   await Brand.deleteOne(brand_id)
+//   res.status(200).json({message: "deleted"})
+// })
 
 app.patch("/userprofile/:id",cors(), async (req,res)=>{
 

@@ -151,5 +151,13 @@ router.post("/",cors(),async (req,res)=>{
     }
   })
 
+  //SellerOrders
+  router.get('/sellers/:id/orders',cors(),async(req,res)=>{
+    const orders = await UserOrders.find({sellerId:req.params.id})
+    res.json(orders)
+  
+  })
+  
+  
 
 module.exports = router

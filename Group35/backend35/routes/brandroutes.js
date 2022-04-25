@@ -23,5 +23,12 @@ router.post("/",cors(), async (req,res)=>{
     res.json(brand_id)
   })
   
+  
+  router.delete('/:id', cors(), async (req,res)=>{
+    const brand_id = await Brand.findById({"_id": req.params.id})
+    await Brand.deleteOne(brand_id)
+    res.status(200).json({message: "deleted"})
+  })
+
 
 module.exports = router
