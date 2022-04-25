@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-around",
         alignItems: "left"
       },
+  
     
     
   }));
@@ -78,6 +79,7 @@ function Orders({username,userId}){
 
     return (
         <>
+        <div className='o-bgimg'>
             {/* importing header from user homepage */}
             <Header />
             <br />
@@ -102,7 +104,7 @@ function Orders({username,userId}){
                     </div>
                 </center>
             </div>
-                
+            </div>
             
         </>
     );

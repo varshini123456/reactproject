@@ -8,6 +8,8 @@ import { ShoppingCartRounded } from "@material-ui/icons";
 import { Typography, Button } from "@material-ui/core";
 import Header from "../UserHomepage/Header"
 import {useState, useEffect} from "react"
+import ".//cartcss.css"
+import { color } from "@mui/system";
 
 function Cart({userId, username }) {
   const history = useNavigate();
@@ -118,30 +120,53 @@ const changeQuantity = async(item) =>{
 
 
   return (
-    <div>
-      <Header username={username}/>
-      <div style={{ marginTop: 100 }}></div>
-      <Typography variant="h3">
+    <div className="c-bgimg">
+      <div >
+       <Header username={username}/>
+       <div style={{ marginTop: 100 }}></div>
+      <Typography variant="h3" style={{ color: "white" }}>
+       <bold> <center>
         <ShoppingCartRounded fontSize="large" />
         &nbsp; Cart
+        </center></bold>
       </Typography>
-      &nbsp;
-      {cart.length === 0 ? (
+              <div className="c-wrapper">
+              <div className="c-project">
+                <div className="c-shop">
+                &nbsp;
+                {cart.length === 0 ? (
         <Typography variant="h5">Cart is empty</Typography>   // If cart is empty display nothing
       ) : (
         cart.map((c) => {
           return <CartProduct cartpro= {c} />;  // If cart is not empty we iterate over cart items and display using CartProduct.
         })
       )}
-      <Typography variant="h5">No.of items : {totalqty}</Typography>
+                   
+                </div>
 
-      <Typography variant="h5">Total Amount : {totalprice}</Typography>
+                <div className="c-right-bar">
+                   <h2><bold>Cart Summary</bold></h2>
+                   <hr></hr>
+                    <p><span>No.of items : {totalqty}</span></p>
+                    <hr></hr>
+                    <p><span>Total Amount : {totalprice}</span></p>
+                    <hr></hr>
+                  
 
-      <div style={{ marginTop: 30 }}></div>
-      <Button color="secondary" variant="contained" onClick={placeOrder}>
-        Check Out
-      </Button>
-      <div style={{ marginTop: 30 }}></div>
+                    <Button color="secondary" variant="contained" onClick={placeOrder}>
+                            Check Out
+                          </Button>
+                    
+                    
+
+
+                </div>
+            </div>
+        </div>
+      
+
+
+        </div> 
     </div>
   );
 }

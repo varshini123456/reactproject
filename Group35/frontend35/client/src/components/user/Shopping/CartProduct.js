@@ -12,7 +12,9 @@ import {
 import { DeleteRounded } from "@material-ui/icons";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import axios from "axios"
+import axios from "axios";
+import ".//cartcss.css"
+import product from "./Product"
 
 const CartProduct = ({cartpro,cart}) => {
   // Code to delete an item from cart
@@ -62,60 +64,15 @@ const CartProduct = ({cartpro,cart}) => {
 
   return (
     <div>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          padding: "10px 10px 10px 10px",
-          marginLeft: "250px",
-          marginRight: "50px",
-        }}
-      >
-        <Grid container spacing={5} alignItems="center">
-          <Grid item xs={10} md={10} lg={10}>
-            <Card>
-              <CardHeader
-                action={
-                  <IconButton onClick={()=>deleteFromCart(cartpro)} color="secondary">
-                    <DeleteRounded fontSize="large" />
-                  </IconButton>
-                }
-                title={"Your Product ID -  " + cartpro.pid}
-              />
-              <CardContent>
-                <Box display="flex" flexDirection="row">
-                  <Box
-                    sx={{
-                      marginLeft: "75px",
-                      marginBottom: "50px",
-                    }}
-                  >
-                    {/* <img
-                      src={item.link}
-                      style={{ width: 200, height: 300 }}
-                      alt="bookImage"
-                    /> */}
-                  </Box>
-                  <Box
-                    sx={{
-                      marginTop: "30px",
-                      marginLeft: "100px",
-                      marginRight: "60px",
-                    }}
-                  >
-                    <Typography variant="h6" align="left">
-                      Product Name - {cartpro.productname}
-                    </Typography>
-                    &nbsp;
-                    <Typography variant="h6" align="left">
-                      Product brand - {cartpro.productbrand}
-                    </Typography>
-                    &nbsp;
-                    <Typography variant="h6" align="left">
-                      Product Price - {cartpro.productprice}
-                    </Typography>
-                    &nbsp;
-                    <Typography variant="h6" align="left">
+
+<div className="c-box">
+{/* <img image = {`http://localhost:5000/uploads/${product.Images[0].filePath}`} alt=""></img> */}
+            <div className="c-content">
+            <h3>Product Name - {cartpro.productname}</h3>
+            <h3>Product brand - {cartpro.productbrand}</h3>
+            <h4>Product Price - {cartpro.productprice}</h4>
+            <h4>
+            <Typography variant="h6" align="left">
                       Quantity 
                           <IconButton onClick={() => Decrement(cartpro)} color="secondary">
                             <RemoveIcon fontSize="medium" />
@@ -124,14 +81,20 @@ const CartProduct = ({cartpro,cart}) => {
                           <IconButton onClick={() => Increment(cartpro)} color="secondary">
                             <AddIcon fontSize="medium" />
                           </IconButton>
-                    </Typography>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Box>
+            </Typography>
+            </h4>
+            
+              
+            
+            <p className="c-btn-area">
+                <IconButton onClick={()=>deleteFromCart(cartpro)} color="secondary">
+                    <DeleteRounded fontSize="medium" />
+                  </IconButton>
+            </p>
+        </div>
+        </div>
+
+
     </div>
   );
 };
