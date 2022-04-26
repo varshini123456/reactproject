@@ -20,6 +20,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import SecurityIcon from '@material-ui/icons/Security';
 import BuildingIcon from '../user/Authentication/Images/building.jpg'
+import axios from 'axios';
 
 // import "./Sellerlogin.css"
 
@@ -47,43 +48,22 @@ export default function SellerLogin() {
     let sellerId = ""
     if( data.get('email').includes('@') && data.get('password').length>=8)
     {
-      fetch("http://localhost:5000/sellers")
-        .then((response) => response.json())
-        .then((sellers) =>{ 
-            //checks if user is present in the list of registerd user in sellerusers
-            let a= (sellers) => {
-                for (let i=0;i<sellers.length;i++){
-                    if(sellers[i].email===data.get('email') && sellers[i].password === data.get('password')){
-                        sellername = sellers[i].sellername
-                        console.log(sellers[i].id)
-                        sellerId = sellers[i].id
-                        console.log(sellerId)
-                        return true;
-                    }
-                    
-                }
-                return false;
-            }
-            
-            let authenticate = a(sellers) // returns true if user is pressent
-            if(authenticate)
-            {
-                //seller state is send to other componnents after login 
-                sellerstore.dispatch({type:"loginSeller",payload: { sellername: sellername,sellerId:sellerId}})
-                
-                //navigate to seller home page
-               navigate('/seller/home')
-            }
-            else
-            {
-                
-                alert("Incorrect credentials");
+        const credentials = { "email": data.get('email'), "password": data.get('password') };
+        axios.post(`http://localhost:5000/sellerlogin`, credentials)
+      .then((res) => {
+        if (res.data) {
 
-            }
-           
-            
-        })
-
+          const seller = {
+            sellerId: res.data.user1._id,
+            sellername: res.data.user1.username,
+            token: res.data.token
+          };
+          sellerstore.dispatch({type:"loginSeller",payload: { sellername: seller.sellername,sellerId:seller.sellerId}})
+          console.log("Login Success");
+          // Redirecting to home page
+          navigate("/seller/home");
+        }
+      })
     }
     else
     {

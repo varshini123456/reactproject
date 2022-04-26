@@ -40,18 +40,6 @@ router.get("/:id/brands",cors(), async (req,res)=>{
     res.json(bran)
   })
 
-// Features of a category
-router.get('/:id/features',cors(), (req,res)=>{
-
-    var query = { cid: req.params.id };
-    db.collection("features").find(query).toArray(function(err, result) {
-      if (err) throw err;
-      res.json(result);
-      //db.close();
-    });
-  
-    
-  })
 
 
 // Products filtering using categories and brands

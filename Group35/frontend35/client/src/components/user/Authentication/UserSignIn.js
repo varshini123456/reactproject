@@ -37,19 +37,20 @@ function UserSignIn(){
     if( data.get('email').includes('@') && data.get('password').length>=8)
     {
         const credentials = { email: data.get('email'), password: data.get('password') };
+        console.log(credentials)
         axios.post(`http://localhost:5000/login`, credentials)
       .then((res) => {
         if (res.data) {
           const user = {
-            userId: res.data.user.id,
-            username: res.data.user.username,
-            isAdmin: res.data.user.isAdmin,
+            userId: res.data.user1._id,
+            username: res.data.user1.username,
+            isAdmin: res.data.user1.isAdmin,
             token: res.data.token,
           };
-          sellerstore.dispatch({ type: "loginSuccess", payload: {userId: userId,username: username}});
+          sellerstore.dispatch({ type: "loginUser", payload: {userId: user.userId,username: user.username}});
           console.log("Login Success");
           // Redirecting to home page
-          navigate("/home");
+          navigate("/user/home");
         }
       })
     }

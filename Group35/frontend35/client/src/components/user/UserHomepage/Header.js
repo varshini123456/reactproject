@@ -20,12 +20,12 @@ const useStyle = makeStyles({
         marginLeft: '2%'
     },
     heading: {
-        fontSize: 30,
+        fontSize: 20,
         fontStyle: 'oblique',
         
     },
     logo : {
-        fontSize: 30,
+        fontSize: 20,
         marginTop : 6,
         color: "#0b53d6",
     },

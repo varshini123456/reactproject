@@ -37,7 +37,7 @@ function SellerProductForm({brandname, sellername, cid,sellerId}) {
     const handleSubmit = async(event) => {
         event.preventDefault();
         const fdata = new FormData(event.currentTarget);
-        fdata.append('file',singleFile)
+        fdata.append('img',singleFile)
         const obj={}
         //fdata contains key value pairs in format ['key','value']
         //Converting fdata pairs to json
@@ -109,7 +109,7 @@ function SellerProductForm({brandname, sellername, cid,sellerId}) {
               name="file"
               label="Image Upload"
               type="file"
-              id="image"
+              id="file"
             //   autoComplete="image"
               onChange={(e) => SingleFileChange(e)}
             />

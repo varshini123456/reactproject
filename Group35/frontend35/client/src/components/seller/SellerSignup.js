@@ -109,6 +109,20 @@ export default function SellerSignup() {
                             autoFocus
                             
                             />
+                        
+                        </Grid>
+                        <Grid item xs={12} >
+                            <TextField
+                            autoComplete="given-name"
+                            name="gst"
+                            required
+                            fullWidth
+                            id="gst"
+                            label="GST Code"
+                            autoFocus
+                            
+                            />
+                        
                         </Grid>
                         <Grid item xs={12}>
                             <TextField

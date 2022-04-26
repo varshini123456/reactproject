@@ -86,6 +86,39 @@ const logStream = fs.createWriteStream(path.join(__dirname,"loggerFile"),{flags:
 
 app.use(morgan(":host :method :url :status :res[content-length] - :response-time ms",{stream:logStream}))
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '../uploads')
+  },
+  filename : (req, file, cb) => {
+    cb(null,  "product"+ new Date().toISOString().replace(/:/g,'-') + file.originalname )
+  }
+})
+
+const filefilter = (req, file, cb) => {
+  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
+      || file.mimetype === 'image/jpeg'){
+          cb(null, true);
+      }else {
+          cb(null, false);
+      }
+}
+
+const fileSizeFormatter = (bytes, decimal) => {
+  if(bytes === 0){
+      return '0 Bytes';
+  }
+  const dm = decimal || 2;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'YB', 'ZB'];
+  const index = Math.floor(Math.log(bytes) / Math.log(1000));
+  return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + ' ' + sizes[index];
+
+}
+
+
+
+const upload = multer({storage: storage,fileFilter: filefilter})
+
 const userRouter = require('./routes/userroutes')
 app.use('/users', userRouter)
 
@@ -102,13 +135,16 @@ const productRouter = require('./routes/productroutes')
 app.use('/sellerproduct', productRouter)
 
 const cartRouter = require('./routes/cartroutes')
-app.use('/cart', cartRouter)
+app.use('/cart', cartRouter) 
 
 const userOrderRouter = require('./routes/userorderroutes')
 app.use('/orders', userOrderRouter)
 
 const loginRouter = require('./routes/loginroutes')
 app.use('/login',loginRouter)
+
+const sellerloginRouter = require('./routes/sellerloginroutes')
+app.use('/sellerlogin',sellerloginRouter)
 
 // app.post('/users/:id/orders',cors(),async(req,res)=>{
 //   const newOrder = await new UserOrders(req.body)
@@ -187,6 +223,44 @@ app.use('/login',loginRouter)
 //   res.status(200).json({message: "deleted"})
 // })
 
+// Features of a category
+app.get('/categories/:id/features',cors(), (req,res)=>{
+
+  var query = { cid: req.params.id };
+  db.collection("features").find(query).toArray(function(err, result) {
+    if (err) throw err;
+    res.json(result);
+    //db.close();
+  });
+
+  
+})
+
+// Posting a product
+
+app.post('/sellers/:id/sellerproduct',cors(),upload.single('file'),async (req, res, next) => {
+  console.log('----------------------------')
+  try{
+    const tmp = req.file.path.slice(8)
+
+    const file = new Image({
+          fileName: req.file.originalname,
+          filePath: tmp,
+          fileType: req.file.mimetype,
+          fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+      });
+      const f = await file.save();
+      
+      const newProduct= new Product({sellerId:req.params.id,...req.body})
+      newProduct.Images.push(f.id)
+      const product = await newProduct.save()
+
+      res.status(201).json(product);
+  }catch(error) {
+      res.status(400).send(error.message);
+  }
+})
+
 app.patch("/userprofile/:id",cors(), async (req,res)=>{
 
   const userprofile = await UserProfile.findById(req.params.id)
@@ -239,6 +313,7 @@ app.patch("/userprofile/:id",cors(), async (req,res)=>{
   }
  
 })
+
 
 
 
