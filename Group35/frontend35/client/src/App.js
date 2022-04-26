@@ -18,7 +18,7 @@ import Cart from './components/user/Shopping/Cart'
 import SellerOrders from './components/seller/SellerOrders';
 import SingleProduct from './components/user/Shopping/SingleProduct';
 
-function App({sellername,username,sellerId}) {
+function App({sellername,username,sellerId,userId}) {
   //Routing to the urls and the components  are rendered based on url 
   //Sending sellername to all components dispalyed after login for seller component inteface
   return (
@@ -42,7 +42,7 @@ function App({sellername,username,sellerId}) {
         <Route exact path='/user/signin' element={<UserSignIn/>} />
         <Route exact path='/user/orders' element={<Orders username={username}/>} />
         <Route exact path='/user/products/:value' element={<Products username={username}/>} />
-        <Route exact path='/user/profile' element={<UserProfileDetails username={username}/>} />
+        <Route exact path='/user/profile' element={<UserProfileDetails username={username} userId={userId} />} />
         <Route exact path='/user/cart' element={<Cart username={username}/>} />
 
       </Routes>
@@ -62,7 +62,8 @@ const mapStateToProps= (state)=>{
   return {
       sellername: state.sellerReducer.sellername,
       username: state.userReducer.username,
-      sellerId:state.sellerReducer.sellerId
+      sellerId:state.sellerReducer.sellerId,
+      userId: state.userReducer.userId
   }
 }
 export default connect(mapStateToProps)(App)

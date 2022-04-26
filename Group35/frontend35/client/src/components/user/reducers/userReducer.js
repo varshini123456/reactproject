@@ -1,5 +1,6 @@
 const initialState = {
-    username: ""
+    username: "",
+    userId: ""
 }
 
 //Reducer for exporting the user name as state after Login

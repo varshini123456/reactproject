@@ -25,12 +25,12 @@ const Products = ({brandname, username}) => {
 
     const fetchdata = (cat , brandname)=>{
 
-        console.log(cat)
+        console.log(brandname)
 
         if(brandname === "" || brandname === undefined){
             return fetch(`http://localhost:5000/categories/${cat}/sellerproduct`).then((response)=>
          response.json()).then((data)=>{
-             console.log(data)
+             console.log(data + '---------------------------')
              setProductinfo({
              products: data
          })
@@ -42,7 +42,7 @@ const Products = ({brandname, username}) => {
     else{
         return fetch(`http://localhost:5000/categories/${cat}/brands/${brandname}/sellerproduct`).then((response)=>
          response.json()).then((data)=>{
-             console.log(data)
+             console.log(data) 
              setProductinfo({
              products: data
          })
@@ -106,6 +106,7 @@ const Products = ({brandname, username}) => {
 
 
     const handleSubmit = async(event) => {
+        console.log('------------------')
         event.preventDefault();
         const fdata = new FormData(event.currentTarget);
         let brand = fdata.get('filterbrand')
@@ -115,7 +116,7 @@ const Products = ({brandname, username}) => {
     }
 
     console.log(products)
-    console.log("dshdhjahdjag")
+    // console.log("dshdhjahdjag")
     return (
         <div>
             <Header username={username}/>
@@ -148,7 +149,6 @@ const Products = ({brandname, username}) => {
             <Grid container justify="center" spacing={4}>
                 {products.map((product)=>(
                     <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                                        <>shajkhsjaaajas</>
                         <Product product={product} />
                     </Grid>
                 ))}

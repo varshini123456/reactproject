@@ -42,7 +42,7 @@ function UserSignIn(){
       .then((res) => {
         if (res.data) {
           const user = {
-            userId: res.data.user1._id,
+            userId: res.data.user1.id,
             username: res.data.user1.username,
             isAdmin: res.data.user1.isAdmin,
             token: res.data.token,

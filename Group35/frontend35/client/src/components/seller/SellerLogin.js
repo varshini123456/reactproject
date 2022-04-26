@@ -54,8 +54,8 @@ export default function SellerLogin() {
         if (res.data) {
 
           const seller = {
-            sellerId: res.data.user1._id,
-            sellername: res.data.user1.username,
+            sellerId: res.data.user1.id,
+            sellername: res.data.user1.sellername,
             token: res.data.token
           };
           sellerstore.dispatch({type:"loginSeller",payload: { sellername: seller.sellername,sellerId:seller.sellerId}})

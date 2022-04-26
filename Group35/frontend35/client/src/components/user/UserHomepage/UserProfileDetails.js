@@ -13,7 +13,7 @@ function UserProfileDetails({username,userId}) {
     const [profile, setProfile] = useState({profiles : []})
 
     const fetchData = (userId) =>{
-        return fetch(`http://localhost:5000/user/${userId}/userprofile`)
+        return fetch(`http://localhost:5000/users/${userId}/userprofile`)
             .then((response) => response.json())
             .then((data)=> {
                 setProfile({profiles : data
