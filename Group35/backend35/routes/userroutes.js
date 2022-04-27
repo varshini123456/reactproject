@@ -6,16 +6,24 @@ const Cart = require('../models/Cart')
 const UserOrders = require('../models/UserOrders')
 const bcrypt = require('bcrypt')
 const cors = require('cors');
-
+const client = require("../redis/redis");
 
 const router = Router()
 
     //User
     router.get("/",cors(),async (req,res)=>{
-        const user = await User.find({})
-        user_json= JSON.stringify(user)
-        res.header('Content-Range','user 0-20/20')
-        res.json(user)
+        const redisusers = await client.get('user');
+        if(redisusers==null){
+            const users= await User.find({})
+            await client.set('user',JSON.stringify(users))
+            res.json(users)
+        }else{
+            res.json(JSON.parse(redisusers))
+        }
+        // const user = await User.find({})
+        // user_json= JSON.stringify(user)
+        // res.header('Content-Range','user 0-20/20')
+        // res.json(user)
     })
     
     router.post("/",cors(),async (req,res)=>{
@@ -28,6 +36,7 @@ const router = Router()
     })
 
     router.get('/:id',cors(),async(req,res)=>{
+        
         const user = User.find({_id:req.params.id})
         res.json(user)
       })

@@ -315,8 +315,6 @@ app.patch("/userprofile/:id",cors(), async (req,res)=>{
 })
 
 
-
-
 app.listen(5000,()=>{
   console.log("listening......")
 });
