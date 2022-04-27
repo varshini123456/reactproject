@@ -17,7 +17,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-function SellerProfile({sellername}) {
+function SellerProfile({sellername,sellerId}) {
     const [firstName, processFirstName] = useState("");
     const [lastName, processLastName] = useState("");
 
@@ -27,7 +27,7 @@ function SellerProfile({sellername}) {
 
     const navigate = useNavigate()
     // taking the details from seller for profile and saving 
-    const save = () => {
+    const save = (sellerId) => {
         var addressInfo = {
             "sellername" : sellername,
             "sellerfirstname" : firstName,
@@ -36,7 +36,7 @@ function SellerProfile({sellername}) {
             "address" : address
         }
 
-        axios.post("http://localhost:5000/sellerprofile", addressInfo)
+        axios.post("http://localhost:5000/sellers/${sellerId}/sellerprofile", addressInfo)
 
         navigate('/seller/home')
 
@@ -130,7 +130,7 @@ function SellerProfile({sellername}) {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  onClick={save}
+                  onClick={() => save(sellerId)}
                 >
                   Submit
                 </Button>
@@ -160,7 +160,8 @@ function SellerProfile({sellername}) {
 }
 const mapStateToProps = (state) => {
     return {
-        sellername : state.sellerReducer.sellername
+        sellername : state.sellerReducer.sellername,
+        sellerId: state.sellerReducer.sellerId
     }
 }
 

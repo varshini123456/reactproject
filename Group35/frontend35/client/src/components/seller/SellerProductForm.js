@@ -57,11 +57,11 @@ function SellerProductForm({brandname, sellername, cid,sellerId}) {
         let prod = {
             sellername: fdata.get('sellername'),
             productname: fdata.get('productname'),
-            produtbrand: fdata.get('productbrand'),
+            productbrand: fdata.get('productbrand'),
             productprice: fdata.get('productprice'),
             ram: fdata.get('ram'),
             storage: fdata.get('storage'),
-            colour: fdata.get('colour') ,
+            color: fdata.get('color') ,
             connectorType:fdata.get('connectorType'),
             productquantity : fdata.get('productquantity'),
             Category : cid

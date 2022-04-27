@@ -11,11 +11,11 @@ import { List, ListItem, ListItemText } from '@material-ui/core/';
 import { Typography } from '@mui/material';
 
 
-function SellerProfileDetails({sellername}) {
+function SellerProfileDetails({sellername,sellerId}) {
     const [profile, setProfile] = useState({profiles : []})
 
-    const fetchData = (sellername) =>{
-        return fetch(`http://localhost:5000/sellerprofile?sellername=${sellername}`)   // fetching the Profile details if exist
+    const fetchData = (sellerId) =>{
+        return fetch(`http://localhost:5000/sellers/${sellerId}/sellerprofile`)   // fetching the Profile details if exist
             .then((response) => response.json())
             .then((data)=> {
                 setProfile({profiles : data
@@ -25,7 +25,7 @@ function SellerProfileDetails({sellername}) {
     }
 
     useEffect(()=>{
-        fetchData(sellername)
+        fetchData(sellerId)
     },[])
 
 
@@ -89,7 +89,8 @@ function SellerProfileDetails({sellername}) {
 }
 const mapStateToProps = (state) => {
     return {
-        sellername : state.sellerReducer.sellername
+        sellername : state.sellerReducer.sellername,
+        sellerId: state.sellerReducer.sellerId
     }
 }
 

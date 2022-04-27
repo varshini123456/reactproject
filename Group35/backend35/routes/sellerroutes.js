@@ -36,6 +36,7 @@ router.post("/",cors(),async (req,res)=>{
   
   router.get("/:id",cors(), async(req,res)=>{
     const seller = await Seller.findById({ "_id": req.params.id})
+    res.json(seller)
   })
   
   router.delete("/:id", cors(), async(req,res)=>{

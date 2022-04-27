@@ -37,7 +37,7 @@ const router = Router()
 
     router.get('/:id',cors(),async(req,res)=>{
         
-        const user = User.find({_id:req.params.id})
+        const user = await User.find({_id:req.params.id})
         res.json(user)
       })
     

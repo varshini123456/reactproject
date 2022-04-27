@@ -42,7 +42,7 @@ const Product = ({product,username,userId}) => {
             if(c.pid === product.id){
                 if(c.qty < product.productquantity){    // checking if stock of product is available
                     flag =1
-                    axios.patch(`http://localhost:5000/users/${c.userId}/cart/${c.id}`,{qty: c.qty + 1})
+                    axios.patch(`http://localhost:5000/users/${product.userId}/cart/${c.id}`,{qty: c.qty + 1})
                     sellerstore.dispatch({type : "ADD_TO_CART", payload : {item : product, username : username }})
                 }
                 else{
