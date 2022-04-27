@@ -103,8 +103,6 @@ function SellerProfile({sellername}) {
                   fullWidth
                   lastname="LastName"
                   label="last name"
-                  lastname="last name"
-                  lastname="last name"
                   autoFocus
                   onChange= {(obj) => processLastName(obj.target.value)}
                 />
@@ -114,7 +112,6 @@ function SellerProfile({sellername}) {
                   fullWidth
                   address="Address"
                   label="address"
-                  address="address"
                   autoFocus
                   onChange= {(obj) => processAddress(obj.target.value)}
                 />
@@ -124,7 +121,6 @@ function SellerProfile({sellername}) {
                   fullWidth
                   city="City"
                   label="city"
-                  city="city"
                   autoFocus
                   onChange= {(obj) => processCity(obj.target.value)}
                 />

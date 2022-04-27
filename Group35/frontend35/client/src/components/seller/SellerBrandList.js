@@ -81,12 +81,12 @@ function SellerBrandList({brandname, sellername, categoryid,sellerId}) {
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
             <Grid item style={{marginTop:80}}>
 
-            <div component="form" onSubmit={handleSubmit} noValidate>
+            <div component="form" onSubmit={handleSubmit} noValidate >
             { brand.length > 0 &&  brand.map((b)=>   // Displaying brands if category is selected
                   
                 
                   <div style={{marginBottom:50}}>
-                  <Typography variant='h4' color="text.secondary" gutterBottom>
+                  <Typography variant='h6' size="small" color="text.secondary" gutterBottom>
                     {b.Name}
                     
                   </Typography>
@@ -103,7 +103,7 @@ function SellerBrandList({brandname, sellername, categoryid,sellerId}) {
                 category.map((c)=>
                 <div style={{marginBottom:50}}>
                 
-                  <Typography variant='h4' color="text.secondary" gutterBottom>
+                  <Typography variant='h6' small='small' color="text.secondary" gutterBottom>
                     {c.Name}
                     
                   </Typography>
@@ -128,7 +128,7 @@ function SellerBrandList({brandname, sellername, categoryid,sellerId}) {
             </Grid>
             </div>
             
-            </div>
+             </div>
             
        
     )

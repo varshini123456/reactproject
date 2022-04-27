@@ -29,6 +29,7 @@ const swaggerDocument = YAML.load('./swagger.yaml')
 
 app.use(express.json())
 app.use(cors());
+
 cors({credentials:true,origin:true})
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -117,7 +118,7 @@ const fileSizeFormatter = (bytes, decimal) => {
 
 
 
-const upload = multer({storage: storage,fileFilter: filefilter})
+const upload = multer({storage: storage, fileFilter: filefilter})
 
 const userRouter = require('./routes/userroutes')
 app.use('/users', userRouter)
@@ -237,22 +238,21 @@ app.get('/categories/:id/features',cors(), (req,res)=>{
 })
 
 // Posting a product
-
-app.post('/sellers/:id/sellerproduct',cors(),upload.single('file'),async (req, res, next) => {
-  console.log('----------------------------')
+const type=upload.single('file')
+app.post('/sellers/:id/sellerproduct',cors(),async (req, res, next) => {
   try{
-    const tmp = req.file.path.slice(8)
+    // const tmp = req.file.path.slice(8)
 
-    const file = new Image({
-          fileName: req.file.originalname,
-          filePath: tmp,
-          fileType: req.file.mimetype,
-          fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
-      });
-      const f = await file.save();
+    // const file = new Image({
+    //       fileName: req.file.originalname,
+    //       filePath: tmp,
+    //       fileType: req.file.mimetype,
+    //       fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+    //   });
+    //   const f = await file.save();
       
       const newProduct= new Product({sellerId:req.params.id,...req.body})
-      newProduct.Images.push(f.id)
+      // newProduct.Images.push(f.id)
       const product = await newProduct.save()
 
       res.status(201).json(product);
@@ -320,3 +320,5 @@ app.patch("/userprofile/:id",cors(), async (req,res)=>{
 app.listen(5000,()=>{
   console.log("listening......")
 });
+
+module.exports = app

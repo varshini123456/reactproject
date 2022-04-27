@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { FormControl, Input } from '@material-ui/core'
-
+import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button'
 import MobileFeature from "./categoryforms/MobileFeature";
 import LaptopFeature from "./categoryforms/LaptopFeatures";
@@ -9,6 +9,9 @@ import axios from "axios";
 import HeadphoneFeatures from './categoryforms/HeadphoneFeatures';
 import {useNavigate} from 'react-router-dom'
 import {connect} from 'react-redux'
+import "./SellerSignup.css"
+import Container from '@mui/material/Container';
+import {  TextField, Card, CardContent, Typography } from '@material-ui/core';
 
 function SellerProductForm({brandname, sellername, cid,sellerId}) {
     //For storing the brands information based on data and updating in {brand: []}
@@ -37,7 +40,7 @@ function SellerProductForm({brandname, sellername, cid,sellerId}) {
     const handleSubmit = async(event) => {
         event.preventDefault();
         const fdata = new FormData(event.currentTarget);
-        fdata.append('img',singleFile)
+        // fdata.append('file',singleFile)
         const obj={}
         //fdata contains key value pairs in format ['key','value']
         //Converting fdata pairs to json
@@ -46,10 +49,24 @@ function SellerProductForm({brandname, sellername, cid,sellerId}) {
         //    console.log(pair)
         //     console.log(pair[0] + ': ' + pair[1]);
         }
+        console.log(obj)
         
         obj["Category"]=cid; // Storing category id from reducer  and storing in Product Object
         obj["sellerId"]=sellerId;
-        await axios.post(`http://localhost:5000/sellers/${sellerId}/sellerproduct`,fdata).then((res)=>console.log("completed")).catch((err)=>console.log(err))// posting the data to sever using axios
+
+        let prod = {
+            sellername: fdata.get('sellername'),
+            productname: fdata.get('productname'),
+            produtbrand: fdata.get('productbrand'),
+            productprice: fdata.get('productprice'),
+            ram: fdata.get('ram'),
+            storage: fdata.get('storage'),
+            colour: fdata.get('colour') ,
+            connectorType:fdata.get('connectorType'),
+            productquantity : fdata.get('productquantity'),
+            Category : cid
+        }
+        await axios.post(`http://localhost:5000/sellers/${sellerId}/sellerproduct`,prod).then((res)=>console.log("completed")).catch((err)=>console.log(err))// posting the data to sever using axios
         console.log(
             sellerId
             
@@ -75,34 +92,43 @@ function SellerProductForm({brandname, sellername, cid,sellerId}) {
     },[])
     // const {brand} = brandsinfo // storing the array of objects in brand obtained from brandinfo
     return (
+          
+        <div className="s-App"> 
+        <br></br>
+        <Typography gutterBottom variant="h4" align="center">
+          Add Product
+         </Typography>
+         
+        <Grid>
+          <Card style={{ maxWidth: 450, padding: "20px 5px", margin: "0 auto" }}>
+            <CardContent>
               
-            
-                // Form for adding product
-            <FormControl component="form" onSubmit={handleSubmit} style={{width:'20vw'}} encType = "multipart/form-data">
-            <Input
-            placeholder='Seller name'
-              margin="dense"
-              required
-              fullWidth
-              id="sellername"
-              label="Sellername"
-              name="sellername"
-              autoComplete="sellername"
-              value={sellername} // auto fills when state comes from reducer sellerReducer
-             
-            />
-            <Input
-             placeholder='Product Name'
-            required
-            fullWidth
-              name="productname"
-              label="productname"
-              type="text"
-              id="productname"
-              autoComplete="productname"
-            />
+              <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
+                Fill up the form to add your product
+            </Typography> 
+              <form onSubmit={handleSubmit}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <TextField placeholder="Enter seller name" name="sellername" label="Seller Name" variant="outlined" value={sellername} fullWidth required />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField placeholder="Enter product name" name="productname" label="Product Name" variant="outlined" fullWidth required />
+                  </Grid>
+                  
+                  <Grid item xs={12}>
+                    <TextField type="text" placeholder="Enter product brand" name="productbrand" label="Product Brand" variant="outlined"  value={brandname} fullWidth required />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField type="number" placeholder="Enter product price" name="productprice" label="Product Price" variant="outlined" fullWidth required />
+                  </Grid>
+                  
+                  <Grid item xs={12}>
+                    <TextField type="number" placeholder="Enter product quantity" name="productquantity" label="Product Quantity" variant="outlined" fullWidth required />
+                  </Grid>
+                  {/* <p style={{marginLeft: '4px', fontWeight:'bolder', marginBottom: '0px'}}>Upload image</p> */}
 
-            <Input
+                  < Grid item xs={12}>
+                  {/* <TextField
              placeholder='Product Image Upload'
             required
             fullWidth
@@ -112,46 +138,8 @@ function SellerProductForm({brandname, sellername, cid,sellerId}) {
               id="file"
             //   autoComplete="image"
               onChange={(e) => SingleFileChange(e)}
-            />
-           
-            <Input sx={{borderRadius:20}}
-            placeholder='Product Brand'
-              margin="normal"
-              required
-              fullWidth
-              name="productbrand"
-              label="productbrand"
-              type="text"
-              id="productbrand"
-              autoComplete="productbrand"
-              value={brandname} // auto fills when state comes from reducer brandReducer
-            />
-            
-            <Input
-            placeholder='Product Price'
-              margin="normal"
-              required
-              fullWidth
-              name="productprice"
-              label="productprice"
-              type="number"
-              id="productprice"
-              autoComplete="productprice"
-            />
-
-            <Input
-            placeholder='Product Quantity'
-              margin="normal"
-              required
-              fullWidth
-              name="productquantity"
-              label="productquantity"
-              type="number"
-              id="productquantity"
-              autoComplete="productquantity"
-            />
-            
-            {
+            /> */}
+             {
                 cid==="61cf2fd30236a97a7bc3c4ca" && <MobileFeature /> //Form for Mobile features
             }
             {
@@ -160,22 +148,18 @@ function SellerProductForm({brandname, sellername, cid,sellerId}) {
             {
                 cid==="624696fe22430c408c3efe61" && <HeadphoneFeatures />
             }
-
-                <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                >
-                Submit
-                </Button>
-                
-            </FormControl>
-            
-           
-          
-
-            
+                 
+                 </Grid>
+                  <Grid item xs={12}>
+                    <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3, mb: 2 }}>Submit </Button>
+                  </Grid>
+  
+                </Grid>
+              </form>
+            </CardContent>
+          </Card>
+        </Grid>
+      </div>
         
     )
 }

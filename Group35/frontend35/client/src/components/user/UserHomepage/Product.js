@@ -80,7 +80,7 @@ const Product = ({product,username,userId}) => {
 
     return (
         <Card className ={classes.root} style={{width : 300}}>
-            <CardMedia className ={classes.media} image = {`http://localhost:5000/uploads/${product.Images[0].filePath}`} title={Product.productname} crossorigin/>
+            <CardMedia className ={classes.media} image = "https://images.samsung.com/is/image/samsung/assets/in/smartphones/mobiles-by-camera/sm-m022gzadins.png?$720_N(384)_JPG$" title={Product.productname} crossorigin/>
             <CardContent>
                 <div className={classes.cardContent}>
                     <Typography variant="h5" gutterBottom>

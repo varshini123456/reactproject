@@ -2,13 +2,14 @@ import React from "react";
 import SellerNavbar from "./SellerNavbar"
 import { connect } from "react-redux";
 import { Box, Button, Typography } from "@material-ui/core";
+import { useNavigate } from "react-router";
 
 import Grid from "@mui/material/Grid"
 
 
 //Creating home page for seller after signin
 const SellerHomepage = ({sellername}) => {
-
+  const navigate = useNavigate();
     return ( 
         <div>
         
@@ -18,7 +19,13 @@ const SellerHomepage = ({sellername}) => {
         <Grid container spacing={2} justifyContent="space-evenly" alignItems="center">
         <Grid item xs={4}>
         <Typography style={{marginLeft:50,fontFamily:'"Kaushan Script", cursive'}} variant="h4">Hi {sellername} ,thanks for joining our journey of Dream Basket. You can add your product by clicking the following button.</Typography>
-        
+        <br></br>
+        <Button style={{marginLeft:50}} variant="contained" onClick={()=>{
+                            navigate("/seller/brands")    
+                          }}
+                           
+                           sx={{ my: 2, color: 'white', display: 'block'
+                      }}>Add Product</Button>
         </Grid>
         <Grid item xs={8}>
         <Box style={{marginTop:120,marginLeft:120}}

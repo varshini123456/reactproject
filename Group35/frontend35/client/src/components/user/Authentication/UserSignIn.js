@@ -69,7 +69,7 @@ function UserSignIn(){
       };
 
     return (
-        <div>
+        <div >
             <Navbar /> 
             <center>
                 <div className="row cards">
