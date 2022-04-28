@@ -36,7 +36,7 @@ function UserSignIn(){
         let userId = ""
     if( data.get('email').includes('@') && data.get('password').length>=8)
     {
-        const credentials = { email: data.get('email'), password: data.get('password') };
+        const credentials = { "email": data.get('email'), "password": data.get('password') };
         console.log(credentials)
         axios.post(`http://localhost:5000/login`, credentials)
       .then((res) => {
